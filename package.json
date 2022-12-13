@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "task1": "nodemon tasks/task1.js ",
-    "task2": "nodemon tasks/task2.js "
+    "build": "babel tasks -d lib",
+    "task1": "nodemon --exec babel-node tasks/task1.js ",
+    "task2": "nodemon --exec babel-node tasks/task2.js "
   },
   "repository": {
     "type": "module",
@@ -19,6 +19,10 @@
   },
   "homepage": "https://github.com/captain2b/node-js-homework#readme",
   "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.20.5",
+    "@babel/node": "^7.20.5",
+    "@babel/preset-env": "^7.20.2",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
