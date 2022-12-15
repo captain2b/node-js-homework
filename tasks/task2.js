@@ -8,37 +8,37 @@ const readable = fs.createReadStream(inputFileURL, 'utf8');
 const writable = fs.createWriteStream(outputFileURL);
 let lineCount = 0;
 
-const onError = (err, module = 'parsing') => {
-    console.log(module ? `Error while ${module}: ${err}` : err);
-}
-const onComplete = () => {
-    console.log('Transformation completed');
-    readable.destroy();
-}
+const onCsvParseError = (err, module = 'parsing') => {
+  console.log(module ? `Error while ${module}: ${err}` : err);
+};
 writable
-    .on('error', (err) => {
-    onError(err, 'writing');
-})
-    .on('close', () => {
+  .on('error', (err) => {
+    onCsvParseError(err, 'writing');
+  })
+  .on('close', () => {
     console.log('Writable stream is closed');
-})
+  });
 readable
-    .on('error', (err) => {
-    onError(err, 'reading');
-})
-    .on('end', () => {
+  .on('error', (err) => {
+    onCsvParseError(err, 'reading');
+  })
+  .on('end', () => {
     console.log('Readable stream is closed');
-})
+  });
+const onCsvParseComplete = () => {
+  console.log('Transformation completed');
+  readable.destroy();
+};
 csv()
-    .fromStream(readable)
-    .subscribe((json, lineNumber) => {
-        lineCount = lineNumber;
-        console.log(`Reading line ${lineNumber+1}...`);
+  .fromStream(readable)
+  .subscribe((json, lineNumber) => {
+    lineCount = lineNumber;
+    console.log(`Reading line ${lineNumber + 1}...`);
 
-        writable.write(`${JSON.stringify(json)}\n`, () => {
-                console.log(`Writing line ${lineNumber+1}...`);
-                if(readable.readableEnded && lineNumber === lineCount) {
-                    writable.destroy();
-            }
-            });
-    },onError,onComplete);
+    writable.write(`${JSON.stringify(json)}\n`, () => {
+      console.log(`Writing line ${lineNumber + 1}...`);
+      if (readable.readableEnded && lineNumber === lineCount) {
+        writable.destroy();
+      }
+    });
+  }, onCsvParseError, onCsvParseComplete);
