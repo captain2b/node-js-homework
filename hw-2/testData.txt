@@ -1,0 +1,59 @@
+Normal user:
+    {
+      "login": "normal",
+      "age": 55,
+      "password": "1pswd",
+      "isDeleted": false,
+    }
+Password error:
+    {
+      "login": "pswd",
+      "age": 55,
+      "password": "pswd",
+      "isDeleted": false,
+    }
+
+User with age error:
+    {
+      "login": "old",
+      "age": 131,
+      "password": "1pswd",
+      "isDeleted": false,
+    }
+
+User with age error:
+    {
+      "login": "young",
+      "age": 1,
+      "password": "1pswd",
+      "isDeleted": false,
+    }
+
+User with missing login:
+    {
+      "age": 55,
+      "password": "1pswd",
+      "isDeleted": false,
+    }
+User with missing age:
+    {
+      "login": "error1",
+      "password": "1pswd",
+      "isDeleted": false,
+    }
+User with missing password:
+    {
+      "login": "error2",
+      "age": 55,
+      "isDeleted": false,
+    }
+
+User with missing isDeleted:
+    {
+      "login": "error3",
+      "age": 55,
+      "password": "1pswd",
+    }
+
+User with missing everything:
+   {}
