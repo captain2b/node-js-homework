@@ -1,5 +1,6 @@
 import autoSuggestUsersService from './autoSuggestUsersService';
 import querySchema, { updateSchema, createSchema } from './validation';
+import loaders from "../src/loaders";
 
 const express = require('express');
 const NodeCache = require('node-cache');
@@ -8,6 +9,9 @@ const validator = require('express-joi-validation').createValidator();
 
 const cache = new NodeCache();
 const app = express();
+
+loaders();
+
 app.use(express.json());
 
 const port = 3000;
