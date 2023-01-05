@@ -1,4 +1,4 @@
-import getAutoSuggestUsers from './utils';
+import autoSuggestUsersService from './autoSuggestUsersService';
 import querySchema, { updateSchema, createSchema } from './validation';
 
 const express = require('express');
@@ -19,7 +19,7 @@ router.get('/users/:id', (req, res) => {
   if (cache.has(id)) {
     res.send(cache.get(id));
   } else {
-    res.send(`User with id: ${id} not found`);
+    res.status(204);
   }
 });
 router.get('/users/', validator.query(querySchema), (req, res, next) => {
@@ -27,7 +27,7 @@ router.get('/users/', validator.query(querySchema), (req, res, next) => {
     // throw new Error('Test');
     const { limit, loginSubstring } = req.query;
     const data = Object.values(cache.mget(cache.keys()));
-    const filtered = getAutoSuggestUsers(data, loginSubstring, limit);
+    const filtered = autoSuggestUsersService(data, loginSubstring, limit);
     res.send(filtered);
   } catch (error) {
     next(error);
@@ -45,7 +45,7 @@ router.put('/users/:id', validator.body(updateSchema), (req, res, next) => {
       cache.set(id, updated);
       res.send(updated);
     } else {
-      res.send(`User with id: ${id} not found`);
+      res.status(204);
     }
   } catch (error) {
     next(error);
@@ -63,13 +63,13 @@ router.delete('/users/:id', (req, res, next) => {
       cache.set(id, updated);
       res.send(updated);
     } else {
-      res.send(`User with id: ${id} not found`);
+      res.status(204);
     }
   } catch (error) {
     next(error);
   }
 });
-router.post('/users/create', validator.body(createSchema), (req, res, next) => {
+router.post('/users/', validator.body(createSchema), (req, res, next) => {
   try {
     const id = uuid.v4();
     cache.set(id, { ...req.body, id });

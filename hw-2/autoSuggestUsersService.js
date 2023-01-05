@@ -1,4 +1,4 @@
-const getAutoSuggestUsers = (data = [], loginSubstring = '', limit = null) => {
+const autoSuggestUsersService = (data = [], loginSubstring = '', limit = null) => {
   const sortedData = data.sort((a, b) => a.login.localeCompare(b.login));
 
   if (!loginSubstring && !limit) {
@@ -10,4 +10,4 @@ const getAutoSuggestUsers = (data = [], loginSubstring = '', limit = null) => {
   return limit ? filtered.slice(0, limit) : filtered;
 };
 
-export default getAutoSuggestUsers;
+export default autoSuggestUsersService;
