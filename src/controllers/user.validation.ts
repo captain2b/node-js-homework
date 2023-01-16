@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const querySchema = Joi.object({
-    limit: Joi.number(),
+    limit: Joi.string(),
     loginSubstring: Joi.string()
 });
 export const createSchema = Joi.object({

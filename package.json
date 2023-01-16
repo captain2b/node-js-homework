@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/server.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/hw-2/server.js\""
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/app.js\"",
+    "lint": "eslint . --ext .ts"
   },
   "repository": {
     "type": "module",
@@ -39,7 +40,6 @@
     "express": "^4.18.2",
     "express-joi-validation": "^5.0.1",
     "joi": "^17.7.0",
-    "node-cache": "^5.1.2",
     "pg": "^8.8.0",
     "sequelize": "^6.28.0",
     "uuid": "^9.0.0"
