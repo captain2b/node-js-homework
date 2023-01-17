@@ -1,4 +1,4 @@
-import {User, UserDal, UserMapper} from "../types/user.interfaces";
+import { User, UserDal, UserMapper } from '../types/user.interfaces';
 
 export default class UserDataMapperService implements UserMapper {
     toDomain(entity: UserDal): User {
@@ -7,9 +7,9 @@ export default class UserDataMapperService implements UserMapper {
             password: entity.Password,
             age: entity.Age,
             isDeleted: entity.IsDeleted,
-            id: entity.PersonID,
-        }
-    };
+            id: entity.PersonID
+        };
+    }
 
     toDalEntity(domain: User): UserDal {
         return {
@@ -17,7 +17,7 @@ export default class UserDataMapperService implements UserMapper {
             Password: domain.password,
             Age: domain.age,
             IsDeleted: domain.isDeleted,
-            PersonID: domain.id,
-        }
-    };
+            PersonID: domain.id
+        };
+    }
 }

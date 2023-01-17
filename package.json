@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node dist/server.js",
+    "start": "node dist/app.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/app.js\"",
     "lint": "eslint . --ext .ts"
   },
@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "csvtojson": "^2.0.10",
+    "custom-env": "^2.0.1",
     "express": "^4.18.2",
     "express-joi-validation": "^5.0.1",
     "joi": "^17.7.0",

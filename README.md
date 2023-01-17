@@ -1,6 +1,7 @@
 # node-js-homework
 Prerequisites:
 1. latest LTS version of Node.js
+2. rename file '.env.example' to '.env' and populate with a data
 
 To start please run: 
 1. npm ci

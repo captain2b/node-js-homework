@@ -1,19 +1,26 @@
-import conString from '../configs/connection';
+require ('custom-env').env();
+
+const conString = process.env.CON_STRING;
 
 const Pg = require('pg').Client;
 
-const pg = new Pg(conString);
-
 export default () => {
+
+    const pg = conString && new Pg(conString);
+
+    if (!pg) {
+        console.error('connection string were not provided');
+    }
+
     pg.connect()
         .then(() => console.log('connected'))
         .catch((err: Error) => console.error('connection error', err.stack));
 
     const valuesArray = [
-        ["1", 'login', 'pswwd1', 11, false],
-        ["2", 'login2', 'pswwd1', 41, true],
-        ["3", 'login3', 'pswwd1', 25, false],
-        ["4", 'login4', 'pswwd1', 30, false]
+        ['1', 'login', 'pswwd1', 11, false],
+        ['2', 'login2', 'pswwd1', 41, true],
+        ['3', 'login3', 'pswwd1', 25, false],
+        ['4', 'login4', 'pswwd1', 30, false]
     ];
     const text = 'INSERT INTO Users("PersonID", "Login", "Password", "Age", "IsDeleted") VALUES($1, $2, $3, $4, $5)';
 

@@ -1,6 +1,6 @@
-import {User, UserMapper, UserServiceInterface} from "../types/user.interfaces";
-import {FindOptions, Op} from "sequelize";
-import {ParsedQs} from "qs";
+import { User, UserMapper, UserServiceInterface } from '../types/user.interfaces';
+import { FindOptions, Op } from 'sequelize';
+import { ParsedQs } from 'qs';
 
 const uuid = require('uuid');
 
@@ -17,13 +17,13 @@ export default class UserService implements UserServiceInterface {
         try {
             const id = uuid.v4();
             const user = await this.model.create(
-                this.mapper.toDalEntity({...newUser, id})
+                this.mapper.toDalEntity({ ...newUser, id })
             );
             return this.mapper.toDomain(user);
         } catch (e) {
             let message = 'Unknown Error';
             if (e instanceof Error) {
-                message = e.message
+                message = e.message;
             }
             return new Error(message);
         }
@@ -32,7 +32,7 @@ export default class UserService implements UserServiceInterface {
     async updateUser(id: string, update: User): Promise<User | Error> {
         try {
             let user = await this.model.findByPk(id);
-            const dalUser = this.mapper.toDalEntity({...update, id});
+            const dalUser = this.mapper.toDalEntity({ ...update, id });
             if (user) {
                 await user.update(dalUser);
             } else {
@@ -42,7 +42,7 @@ export default class UserService implements UserServiceInterface {
         } catch (e) {
             let message = 'Unknown Error';
             if (e instanceof Error) {
-                message = e.message
+                message = e.message;
             }
             return new Error(message);
         }
@@ -50,15 +50,15 @@ export default class UserService implements UserServiceInterface {
 
     async deleteUser(id: string): Promise<User | Error> {
         try {
-            let user = await this.model.findByPk(id);
+            const user = await this.model.findByPk(id);
             if (user) {
-                await user.update({IsDeleted: true});
+                await user.update({ IsDeleted: true });
             }
             return user;
         } catch (e) {
             let message = 'Unknown Error';
             if (e instanceof Error) {
-                message = e.message
+                message = e.message;
             }
             return new Error(message);
         }
@@ -71,14 +71,14 @@ export default class UserService implements UserServiceInterface {
         } catch (e) {
             let message = 'Unknown Error';
             if (e instanceof Error) {
-                message = e.message
+                message = e.message;
             }
             return new Error(message);
         }
     }
 
     async getUsers(loginSubstring?: string | ParsedQs | string[] | ParsedQs[],
-                   limit?: string | ParsedQs | string[] | ParsedQs[]): Promise<User[] | Error> {
+        limit?: string | ParsedQs | string[] | ParsedQs[]): Promise<User[] | Error> {
         if ((loginSubstring && typeof loginSubstring !== 'string')
             || (limit && typeof limit !== 'string')
         ) {
@@ -105,7 +105,7 @@ export default class UserService implements UserServiceInterface {
         } catch (e) {
             let message = 'Unknown Error';
             if (e instanceof Error) {
-                message = e.message
+                message = e.message;
             }
             return new Error(message);
         }

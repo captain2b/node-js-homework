@@ -1,9 +1,4 @@
 
-export interface UserServiceInterface {
-    model:  any;
-    mapper: any;
-}
-
 export interface UserDal {
     Login: string;
     Password: string;
@@ -23,4 +18,9 @@ export interface User {
 export interface UserMapper {
     toDomain(x: UserDal): User;
     toDalEntity(x: User): UserDal;
+}
+
+export interface UserServiceInterface {
+    model:  any;
+    mapper: UserMapper;
 }

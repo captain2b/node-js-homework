@@ -1,5 +1,8 @@
-import conString from '../configs/connection';
 import { DataTypes, Sequelize } from 'sequelize';
+require ('custom-env').env();
+
+const conString = process.env.CON_STRING || '';
+console.log(conString);
 
 const sequelize = new Sequelize(conString);
 
@@ -22,7 +25,7 @@ const User = sequelize.define('user', {
         type: DataTypes.INTEGER,
         validate: { min: 4, max: 130 }
     },
-    IsDeleted: DataTypes.BOOLEAN,
+    IsDeleted: DataTypes.BOOLEAN
 }, {
     timestamps: false
 });
