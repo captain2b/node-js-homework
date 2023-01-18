@@ -1,14 +1,14 @@
-import { User, UserMapper, UserServiceInterface } from '../types/user.interfaces';
-import { FindOptions, Op } from 'sequelize';
+import {User, UserMapper, UserModel, UserServiceInterface} from '../types/user.interfaces';
+import {FindOptions, ModelStatic, Op} from 'sequelize';
 import { ParsedQs } from 'qs';
 
 const uuid = require('uuid');
 
 export default class UserService implements UserServiceInterface {
-    model: any;
+    model: ModelStatic<UserModel>;
     mapper: UserMapper;
 
-    constructor(userModel: any, userDataMapper: UserMapper) {
+    constructor(userModel: ModelStatic<UserModel>, userDataMapper: UserMapper) {
         this.model = userModel;
         this.mapper = userDataMapper;
     }
@@ -48,7 +48,7 @@ export default class UserService implements UserServiceInterface {
         }
     }
 
-    async deleteUser(id: string): Promise<User | Error> {
+    async deleteUser(id: string): Promise<UserModel | Error | null> {
         try {
             const user = await this.model.findByPk(id);
             if (user) {
@@ -101,7 +101,7 @@ export default class UserService implements UserServiceInterface {
         }
         try {
             const users = await this.model.findAll(options);
-            return users.map((user: any) => this.mapper.toDomain(user));
+            return users.map((user) => this.mapper.toDomain(user));
         } catch (e) {
             let message = 'Unknown Error';
             if (e instanceof Error) {

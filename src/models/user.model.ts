@@ -1,4 +1,5 @@
 import { DataTypes, Sequelize } from 'sequelize';
+import {UserModel} from "../types/user.interfaces";
 require ('custom-env').env();
 
 const conString = process.env.CON_STRING || '';
@@ -14,7 +15,7 @@ sequelize.authenticate()
         console.error('Unable to connect to the database:', error);
     });
 
-const User = sequelize.define('user', {
+const User = sequelize.define<UserModel>('user', {
     PersonID: {
         type: DataTypes.STRING,
         primaryKey: true

@@ -1,3 +1,4 @@
+import {Model, InferAttributes, InferCreationAttributes, ModelStatic} from "sequelize";
 
 export interface UserDal {
     Login: string;
@@ -16,11 +17,14 @@ export interface User {
 }
 
 export interface UserMapper {
-    toDomain(x: UserDal): User;
-    toDalEntity(x: User): UserDal;
+    toDomain(x: UserDal | null): User;
+    toDalEntity(x: User | null): UserDal;
 }
 
+export interface UserModel extends Model<InferAttributes<UserModel>, InferCreationAttributes<UserModel>>, UserDal {}
+
 export interface UserServiceInterface {
-    model:  any;
+    model:  ModelStatic<UserModel>;
     mapper: UserMapper;
 }
+
