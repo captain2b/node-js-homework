@@ -1,4 +1,4 @@
-import {Model, InferAttributes, InferCreationAttributes, ModelStatic} from "sequelize";
+import { Model, InferAttributes, InferCreationAttributes, ModelStatic } from 'sequelize';
 
 export interface UserDal {
     Login: string;
