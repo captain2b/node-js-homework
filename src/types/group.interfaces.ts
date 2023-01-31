@@ -21,7 +21,7 @@ export interface GroupMapper {
 }
 
 export interface GroupModel extends Model<InferAttributes<GroupModel>, InferCreationAttributes<GroupModel>>, GroupDal {
-    getUsers: Sequelize.BelongsToGetAssociationMixin<UserDal[]>;
+    getUsers: Sequelize.BelongsToManyGetAssociationsMixin<UserDal>;
     addUsers: Sequelize.BelongsToSetAssociationMixin<UserDal, string[]>;
 }
 

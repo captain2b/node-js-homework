@@ -95,7 +95,7 @@ export default class GroupService implements GroupServiceInterface {
     async getGroupUsers(id: string): Promise<UserDal[] | null | undefined | Error> {
         try {
             const group = await this.model.findByPk(id);
-            // @ts-ignore
+
             return group?.getUsers({ joinTableAttributes: [] });
         } catch (e) {
             let message = 'Unknown Error';
@@ -112,7 +112,6 @@ export default class GroupService implements GroupServiceInterface {
                 const group = await this.model.findByPk(groupId, { transaction: t });
                 await group?.addUsers(userIds, { transaction: t });
 
-                // @ts-ignore
                 return group?.getUsers({ joinTableAttributes: [], transaction: t });
             });
             return result;
