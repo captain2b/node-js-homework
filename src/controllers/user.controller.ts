@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
-import querySchema, { updateSchema, createSchema } from './user.validation';
-import UserModel from '../models/user.model';
+import querySchema, { updateSchema, createSchema } from './validation/user.validation';
+import { User as UserModel } from '../models';
 import UserService from '../services/user.service';
 import UserDataMapperService from '../services/userDataMapper.service';
 
@@ -10,7 +10,7 @@ const router = express.Router();
 
 const userServiceInstance = new UserService(UserModel, new UserDataMapperService());
 
-router.get('/users/:id', (req: Request, res: Response, next: NextFunction) => {
+router.get('/:id', (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     userServiceInstance.getUser(id)
         .then(data => {
@@ -25,7 +25,7 @@ router.get('/users/:id', (req: Request, res: Response, next: NextFunction) => {
         });
 });
 
-router.get('/users/', validator.query(querySchema), (req: Request, res: Response, next: NextFunction) => {
+router.get('/', validator.query(querySchema), (req: Request, res: Response, next: NextFunction) => {
     const { limit, loginSubstring } = req.query;
     userServiceInstance.getUsers(loginSubstring, limit)
         .then((data) => {
@@ -36,7 +36,7 @@ router.get('/users/', validator.query(querySchema), (req: Request, res: Response
         });
 });
 
-router.put('/users/:id', validator.body(updateSchema), (req: Request, res: Response, next: NextFunction) => {
+router.put('/:id', validator.body(updateSchema), (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     userServiceInstance.updateUser(id, req.body)
         .then((data) => {
@@ -47,7 +47,7 @@ router.put('/users/:id', validator.body(updateSchema), (req: Request, res: Respo
         });
 });
 
-router.delete('/users/:id', (req: Request, res: Response, next: NextFunction) => {
+router.delete('/:id', (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     userServiceInstance.deleteUser(id).then((data) => {
         if (data) {
@@ -60,7 +60,7 @@ router.delete('/users/:id', (req: Request, res: Response, next: NextFunction) =>
     });
 });
 
-router.post('/users/', validator.body(createSchema), (req: Request, res: Response, next: NextFunction) => {
+router.post('/', validator.body(createSchema), (req: Request, res: Response, next: NextFunction) => {
     userServiceInstance.createUser(req.body)
         .then((data) => {
             res.send(data);
