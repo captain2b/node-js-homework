@@ -1,5 +1,5 @@
-import {User, UserMapper, UserModel, UserServiceInterface} from '../types/user.interfaces';
-import {FindOptions, ModelStatic, Op} from 'sequelize';
+import { User, UserMapper, UserModel, UserServiceInterface } from '../types/user.interfaces';
+import { FindOptions, ModelStatic, Op } from 'sequelize';
 import { ParsedQs } from 'qs';
 
 const uuid = require('uuid');

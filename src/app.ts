@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import loaders from './loaders';
-import router from './controllers/user.controller';
+import rootRouter from './controllers';
 
 const startServer = () => {
     const app = express();
@@ -23,7 +23,7 @@ const startServer = () => {
         console.log(`App listening on port ${port}`);
     });
 
-    app.use('/', router);
+    app.use('/', rootRouter);
 };
 
 startServer();
