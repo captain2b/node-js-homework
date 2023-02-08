@@ -1,4 +1,4 @@
-import { Group, GroupDal, GroupMapper } from '../types/group.interfaces';
+import { Group, GroupDal, GroupMapper } from '../../types/group.interfaces';
 
 export default class GroupDataMapperService implements GroupMapper {
     toDomain(entity: GroupDal): Group {
