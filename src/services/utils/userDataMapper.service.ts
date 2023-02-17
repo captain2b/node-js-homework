@@ -1,4 +1,4 @@
-import { User, UserDal, UserMapper } from '../types/user.interfaces';
+import { User, UserDal, UserMapper } from '../../types/user.interfaces';
 
 export default class UserDataMapperService implements UserMapper {
     toDomain(entity: UserDal): User {
