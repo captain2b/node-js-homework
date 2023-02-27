@@ -6,6 +6,8 @@ import logger from './middleware/logger';
 import winstonLogger from './middleware/winstonLogger';
 import authenticateToken from "./middleware/auth";
 
+const cors = require('cors');
+
 const startServer = () => {
     process
         .on('unhandledRejection', (reason, promise) => {
@@ -22,6 +24,7 @@ const startServer = () => {
             process.exit(1);
         });
     const app = express();
+    app.use(cors()); // enable cors for all domain and all requests incl options
 
     loaders();
 
