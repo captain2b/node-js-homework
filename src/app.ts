@@ -4,6 +4,7 @@ import rootRouter from './controllers';
 import errorHandler from './middleware/errorHandler';
 import logger from './middleware/logger';
 import winstonLogger from './middleware/winstonLogger';
+import authenticateToken from "./middleware/auth";
 
 const startServer = () => {
     process
@@ -26,6 +27,7 @@ const startServer = () => {
 
     app.use(express.json());
     app.use(logger);
+    app.use(authenticateToken);
 
     const port = 3000;
     app.set('x-powered-by', false);
