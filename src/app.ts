@@ -4,6 +4,9 @@ import rootRouter from './controllers';
 import errorHandler from './middleware/errorHandler';
 import logger from './middleware/logger';
 import winstonLogger from './middleware/winstonLogger';
+import authenticateToken from "./middleware/auth";
+
+const cors = require('cors');
 
 const startServer = () => {
     process
@@ -21,11 +24,13 @@ const startServer = () => {
             process.exit(1);
         });
     const app = express();
+    app.use(cors()); // enable cors for all domain and all requests incl options
 
     loaders();
 
     app.use(express.json());
     app.use(logger);
+    app.use(authenticateToken);
 
     const port = 3000;
     app.set('x-powered-by', false);
