@@ -7,6 +7,7 @@ import winstonLogger from './middleware/winstonLogger';
 import authenticateToken from "./middleware/auth";
 
 const cors = require('cors');
+const app = express();
 
 const startServer = () => {
     process
@@ -23,7 +24,6 @@ const startServer = () => {
             });
             process.exit(1);
         });
-    const app = express();
     app.use(cors()); // enable cors for all domain and all requests incl options
 
     loaders();
@@ -32,15 +32,11 @@ const startServer = () => {
     app.use(logger);
     app.use(authenticateToken);
 
-    const port = 3000;
     app.set('x-powered-by', false);
-
-    app.listen(port, () => {
-        console.log(`App listening on port ${port}`);
-    });
 
     app.use('/', rootRouter);
     app.use(errorHandler);
 };
 
 startServer();
+export default app;
